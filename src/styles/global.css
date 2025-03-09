@@ -1,0 +1,35 @@
+/* Default light theme variables */
+:root {
+    --background-color: #ffffff;
+    --text-color: #1a1a1a;
+    --heading-color: #333333;
+    --link-color: #0077cc;
+    --border-color: #dddddd;
+  }
+  
+  /* Dark q when class is applied (for manual toggle) */
+  html.dark-theme {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --heading-color: #ffffff;
+    --link-color: #59a6ff;
+    --border-color: #444444;
+  }
+  
+  /* Dark theme based on system preference (when no class is applied) */
+  @media (prefers-color-scheme: dark) {
+    html:not(.light-theme) {
+      --background-color: #121212;
+      --text-color: #e0e0e0;
+      --heading-color: #ffffff;
+      --link-color: #59a6ff;
+      --border-color: #444444;
+    }
+  }
+  
+  /* Apply the theme variables */
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
