@@ -1,0 +1,10 @@
+---
+const {frontmatter} = Astro.props
+import Layout from "./Layout.astro"
+
+var title = frontmatter.hasOwnProperty("title") ? frontmatter.title : "Untitled"
+
+---
+<Layout page_title={title}>
+  <slot/>
+</Layout>
