@@ -22,7 +22,7 @@ const tagged_posts = posts;//.filter(post => post.data.tags.includes(tag));
   <p>Posts tagged with {tag}</p>
   <ul>
     {tagged_posts.map(post => (
-      <BlogPost url={`/Homepage/posts/${post.id}/`} title={post.data.title} />
+      <BlogPost url={`/Homepage/blog/${post.id}/`} title={post.data.title} />
     ))}
   </ul>
 </Layout>

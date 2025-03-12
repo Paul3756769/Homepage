@@ -11,6 +11,6 @@ const uniqueTags = [...new Set(all_posts.map((post: any) => post.data.tags).flat
   <p>Tags</p>
   <ul>
     {uniqueTags.map(tag => (
-      <li><a href={`./${tag}/`}>{tag}</a></li>
+      <li><a href={`/Homepage/tags/${tag}/`}>{tag}</a></li>
     ))}
   </ul>
