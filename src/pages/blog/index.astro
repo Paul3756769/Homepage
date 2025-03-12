@@ -1,0 +1,18 @@
+---
+const title = "Blog";
+import { getCollection } from "astro:content";
+
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+const posts = await getCollection("blog");
+// const posts = Object.values(import.meta.glob("./posts/*.md", {eager: true}));
+
+---
+<Layout page_title={title}>
+    Here is my blog.
+    <a href="./tags/">Tags</a>
+    <ul>
+        {posts.map(post => (
+        <BlogPost url={`./blog/${post.id}/`} title={post.data.title} />      ))}
+      </ul>
+</Layout>

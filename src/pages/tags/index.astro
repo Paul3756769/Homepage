@@ -1,0 +1,16 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import { getCollection } from "astro:content";
+
+const title = "Tags";
+const all_posts = await getCollection('blog');
+const uniqueTags = [...new Set(all_posts.map((post: any) => post.data.tags).flat())];
+---
+<Layout page_title={title}>
+  <p>Tags</p>
+  <ul>
+    {uniqueTags.map(tag => (
+      <li><a href={`./${tag}/`}>{tag}</a></li>
+    ))}
+  </ul>

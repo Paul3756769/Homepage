@@ -1,6 +1,13 @@
 ---
-layout: "../../layouts/MarkdownLayout.astro"
 title: "Start"
+pubDate: 2025-03-12
+tags: ["test"]
+author: "Paul"
+image: {
+    url: "https://docs.astro.build/assets/rose.webp",
+    alt: "test"
+}
+description: "test"
 ---
 
 # My First Blog Entry: How to set up a blog?

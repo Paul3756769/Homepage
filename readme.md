@@ -4,4 +4,5 @@ Hello there!
 
 # Next Steps
 - [x] fix the link path issue in github pages
-- [ ] make a nice 404 page
+- [x] make a nice 404 page
+- [ ] make a blog dir and move md there
