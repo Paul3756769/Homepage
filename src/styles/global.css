@@ -26,10 +26,12 @@
       --border-color: #444444;
     }
   }
-  
+
   /* Apply the theme variables */
   body {
     background-color: var(--background-color);
     color: var(--text-color);
+    /*TODO: adapt script to allow this without triggering it on load
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
+    */
+}
