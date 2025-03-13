@@ -5,4 +5,5 @@ Hello there!
 # Next Steps
 - [x] fix the link path issue in github pages
 - [x] make a nice 404 page
-- [ ] make a blog dir and move md there
+- [x] make a blog dir and move md there
+- [ ] make theme toggle with animation
