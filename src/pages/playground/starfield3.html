@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS-Only Star Field</title>
+  <style>
+    :root {
+      --star-density: 3000;
+      --star-color: 210, 236, 255;
+    }
+    
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+    }
+    
+    .starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* Small distant stars layer */
+    .starfield::before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      border-radius: 50%;
+      box-shadow: calc(var(--star-density) * 0.1) var(--pos1) var(--pos2) 0 rgba(255, 255, 255, 0.8),
+                  calc(var(--star-density) * 0.1) var(--pos3) var(--pos4) 0 rgba(255, 255, 255, 0.7),
+                  calc(var(--star-density) * 0.1) var(--pos5) var(--pos6) 0 rgb(255, 255, 255),
+                  calc(var(--star-density) * 0.1) var(--pos7) var(--pos8) 0 rgba(255, 255, 255, 0.6),
+                  calc(var(--star-density) * 0.1) var(--pos9) var(--pos10) 0 rgba(255, 255, 255, 0.9),
+                  calc(var(--star-density) * 0.1) var(--pos2) var(--pos3) 0 rgba(var(--star-color), 0.8),
+                  calc(var(--star-density) * 0.1) var(--pos4) var(--pos5) 0 rgba(255, 255, 255, 0.7),
+                  calc(var(--star-density) * 0.1) var(--pos6) var(--pos7) 0 rgba(255, 255, 255, 0.8),
+                  calc(var(--star-density) * 0.1) var(--pos8) var(--pos9) 0 rgb(255, 255, 255),
+                  calc(var(--star-density) * 0.1) var(--pos10) var(--pos1) 0 rgba(255, 255, 255, 0.8);
+      animation: twinkle-small 8s infinite ease-in-out alternate;
+    }
+    
+    /* Medium stars layer */
+    .starfield::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      box-shadow: calc(var(--star-density) * 0.01) var(--pos5) var(--pos9) 0 rgba(255, 255, 255, 0.9),
+                  calc(var(--star-density) * 0.01) var(--pos1) var(--pos7) 0 rgba(var(--star-color), 1),
+                  calc(var(--star-density) * 0.01) var(--pos3) var(--pos2) 0 rgba(255, 255, 255, 0.8),
+                  calc(var(--star-density) * 0.01) var(--pos8) var(--pos4) 0 rgba(var(--star-color), 0.9),
+                  calc(var(--star-density) * 0.01) var(--pos6) var(--pos10) 0 rgb(255, 255, 255);
+      animation: twinkle-medium 12s infinite linear alternate-reverse;
+    }
+    
+    /* Large bright stars */
+    .starfield {
+      background-color: transparent;
+      box-shadow: calc(var(--star-density) * 0.001) var(--pos2) var(--pos8) 0 0.5px rgba(var(--star-color), 1),
+                 calc(var(--star-density) * 0.001) var(--pos4) var(--pos6) 0 1px rgba(255, 255, 255, 0.9),
+                 calc(var(--star-density) * 0.001) var(--pos7) var(--pos3) 0 1.5px rgba(var(--star-color), 0.8),
+                 calc(var(--star-density) * 0.001) var(--pos9) var(--pos1) 0 0.5px rgb(255, 255, 255),
+                 calc(var(--star-density) * 0.001) var(--pos10) var(--pos5) 0 2px rgba(255, 255, 255, 0.7);
+      animation: twinkle-large 10s infinite ease-in-out alternate;
+    }
+
+    @keyframes twinkle-small {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes twinkle-medium {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes twinkle-large {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Instead of using @function which isn't supported in standard CSS,
+       we'll use hardcoded random values for star positions */
+    .starfield::before,
+    .starfield::after,
+    .starfield {
+      --pos1: 10%;
+      --pos2: 20%;
+      --pos3: 30%;
+      --pos4: 40%;
+      --pos5: 50%;
+      --pos6: 60%;
+      --pos7: 70%;
+      --pos8: 80%;
+      --pos9: 90%;
+      --pos10: 25%;
+    }
+  </style>
+</head>
+<body>
+  <div class="starfield"></div>
+</body>
+</html>
