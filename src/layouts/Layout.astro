@@ -1,6 +1,7 @@
 ---
 import Navigation from "../components/Navigation.astro";
 //import ThemeToggle from "../components/ThemeToggle.astro";
+import Starfield from "../components/Starfield.astro";
 import Logo from "../components/Logo.astro";
 import "../styles/global.css";
 const {page_title} = Astro.props;
@@ -16,10 +17,10 @@ const {page_title} = Astro.props;
 		<title>{page_title}</title>
 	</head>
 	<body>
+	<Starfield />
 	<div class="content-wrapper">
 		<header>
-				<Logo />
-				<Navigation />
+			<Navigation />
 		</header>
 		<main>
 			<slot />
@@ -35,10 +36,11 @@ const {page_title} = Astro.props;
 	html,
 	body {
 		margin: 0;
+		width: 100%;
 	}
 	.content-wrapper {
+		padding: 0rem;
 		min-height: 100vh;
-		min-width: 100vw;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -47,18 +49,18 @@ const {page_title} = Astro.props;
 	header {
 		width: 100%;
 		flex-shrink: 0;
+		flex-basis: 4rem;
+
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
-		padding-bottom: 1rem;
-		margin-bottom: 3rem;
-
-
 	}
 	main {
 		/*flex-grow: 1;*/
-		max-width: 50rem;
+		/*max-width: 64rem;*/
+		max-width: 50rem; /* for 16px font size*/
+		padding-top: 4rem;
 	}
 	footer {
 		flex-basis: 4rem;

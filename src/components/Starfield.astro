@@ -1,0 +1,105 @@
+---
+// Generate stars in the component
+const starCount = 400;
+const stars = [];
+
+for (let i = 0; i < starCount; i++) {
+  // Random position
+  const x = Math.random() * 100; // 0-100%
+  const y = Math.random() * 100; // 0-100%
+  
+  // Random depth (for parallax effect)
+  const depth = Math.floor(Math.random() * 3); // 0, 1, or 2 for different layers
+  
+  // Random star properties
+  const size = 0.5 + Math.random() * Math.random() * 2.5;
+  const opacity = 0.1 + Math.random() * 0.9;
+  const delay = Math.random() * 4;
+  
+  // Random star color (mostly white with slight variations)
+  const hue = 180 + Math.random() * 60; // blue-white range
+  const saturation = Math.random() * 30; // not too saturated
+  const lightness = 85 + Math.random() * 15; // bright
+  const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  
+  stars.push({
+    x,
+    y,
+    depth,
+    size,
+    opacity,
+    delay,
+    color
+  });
+}
+---
+
+<div class="star-field">
+  {stars.map((star) => (
+    <div 
+      class={`star depth-${star.depth}`} 
+      style={`
+        left: ${star.x}%;
+        top: ${star.y}%;
+        width: ${star.size}px;
+        height: ${star.size}px;
+        opacity: ${star.opacity};
+        background-color: ${star.color};
+        animation-delay: ${star.delay}s;
+      `}
+    ></div>
+  ))}
+</div>
+
+<style>
+  /* Starfield styles */
+  .star-field {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -9999999; /* Behind content */
+    overflow: hidden;
+    pointer-events: none; /* Allow clicks to pass through */
+  }
+  
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    animation: twinkle 4s infinite ease-in-out;
+  }
+  
+  /* Different depths for parallax effect */
+  .depth-0 {
+    animation: twinkle 4s infinite ease-in-out, parallax-slow 100s infinite linear;
+  }
+  
+  .depth-1 {
+    animation: twinkle 4s infinite ease-in-out, parallax-medium 60s infinite linear;
+  }
+  
+  .depth-2 {
+    animation: twinkle 4s infinite ease-in-out, parallax-fast 30s infinite linear;
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--opacity, 1); }
+    50% { opacity: calc(var(--opacity, 1) * 0.5); }
+  }
+  
+  @keyframes parallax-slow {
+    from { transform: translateY(0%); }
+    to { transform: translateY(100%); }
+  }
+  
+  @keyframes parallax-medium {
+    from { transform: translateY(0%); }
+    to { transform: translateY(100%); }
+  }
+  
+  @keyframes parallax-fast {
+    from { transform: translateY(0%); }
+    to { transform: translateY(100%); }
+  }
+</style>
