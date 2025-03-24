@@ -3,9 +3,41 @@ import Layout from "../layouts/Layout.astro";
 const title = "404";
 ---
 <Layout page_title = {title}>
-  <h1>Page not found</h1>
+  <div class="background-404">404</div>
   <img src="/Homepage/404.gif" alt="404" />
   <p>Sorry for that.</p>
-  <p>I recommend you go to <a href="/Homepage/">Home</a> or use the search. </p>
-  <p> Search not implemented yet. Sorry again.</p>
+  <p>I recommend you go to <a href="/Homepage/">Home</a>.</p>
 </Layout>
+
+<style>
+  .background-404 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80vw;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.15);
+    z-index: -1;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-transform: uppercase;
+  }
+  
+  /* Position the content above the background */
+  h1, p, img {
+    position: relative;
+    z-index: 1;
+  }
+</style>
