@@ -1,11 +1,30 @@
 ---
+import NavLink from './NavLink.astro';
+// Define image URL property with default value of null
+const imageUrl = null;
 ---
-<div class="logo">
-  Logo
-</div>
+{imageUrl ? (
+  <a href="/Homepage/" class="logo">
+    <img 
+      src={imageUrl} 
+      alt="Home" 
+      onerror="this.style.display='none'; this.parentNode.textContent='Home';"
+    />
+  </a>
+) : (
+  <NavLink href="/Homepage/" text="Home" class="logo" />
+)}
 
 <style>
   .logo {
-   heigth: 2rem;
-  
+    height: 2rem;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
   }
+  
+  .logo img {
+    height: 100%;
+    width: auto;
+  }
+</style>

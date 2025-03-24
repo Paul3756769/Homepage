@@ -1,9 +1,10 @@
 ---
 import ThemeToggle from './ThemeToggle.astro'
+import NavLink from './NavLink.astro'
 ---
 <nav>
-    <a href="/Homepage/">Home</a>
-    <a href="/Homepage/blog">Blog</a>
+    <NavLink href="/Homepage/playground" text="Playground" />
+    <!---<NavLink href="/Homepage/blog" text="Blog" />-->
     <!---<ThemeToggle />-->
 </nav>
 
@@ -12,17 +13,6 @@ import ThemeToggle from './ThemeToggle.astro'
         display: flex;
         flex-direction: row;
         justify-content: center;        
-        
     }
-    a {
-        text-decoration: none;
-        color: var(--text-color);
-        /* Add hover color-change effect */
-        transition: color 0.1s;
-
-        margin: 0 1rem;
-    }
-    a:hover {
-        color: #0070f3;
     }
 </style>
