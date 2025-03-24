@@ -1,0 +1,19 @@
+---
+// Define props for href, text content, and optional class
+const { href, text, class: className = "" } = Astro.props;
+---
+<a href={href} class={`nav-link ${className}`}>
+  {text}
+</a>
+
+<style>
+  .nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.1s;
+    margin: 0 1rem;
+  }
+  .nav-link:hover {
+    color: #0070f3;
+  }
+</style>
