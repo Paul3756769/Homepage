@@ -9,7 +9,9 @@ import ThemeToggle from './ThemeToggle.astro'
 
 <style>
     nav {
-        
+        display: flex;
+        flex-direction: row;
+        justify-content: center;        
         
     }
     a {
@@ -17,6 +19,8 @@ import ThemeToggle from './ThemeToggle.astro'
         color: var(--text-color);
         /* Add hover color-change effect */
         transition: color 0.1s;
+
+        margin: 0 1rem;
     }
     a:hover {
         color: #0070f3;

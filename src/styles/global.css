@@ -1,4 +1,5 @@
 /* Default light theme variables */
+
 :root {
     --background-color: #ffffff;
     --text-color: #1a1a1a;
@@ -6,6 +7,8 @@
     --link-color: #0077cc;
     --border-color: #dddddd;
   }
+
+
   
   /* Dark q when class is applied (for manual toggle) */
   html.dark-theme {
@@ -34,4 +37,12 @@
     /*TODO: adapt script to allow this without triggering it on load
     transition: background-color 0.3s ease, color 0.3s ease;
     */
+}
+
+
+/* Define default link styles */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }

@@ -20,6 +20,7 @@ const {page_title} = Astro.props;
 	<Starfield />
 	<div class="content-wrapper">
 		<header>
+			<Logo />
 			<Navigation />
 		</header>
 		<main>
@@ -53,7 +54,7 @@ const {page_title} = Astro.props;
 
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
 	}
 	main {
