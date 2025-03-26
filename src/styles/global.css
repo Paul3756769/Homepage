@@ -4,7 +4,7 @@
     --background-color: #ffffff;
     --text-color: #1a1a1a;
     --heading-color: #333333;
-    --link-color: #851bc2;
+    --link-color: #0077cc;
     --border-color: #dddddd;
   }
 
@@ -15,7 +15,7 @@
     --background-color: #121212;
     --text-color: #e0e0e0;
     --heading-color: #ffffff;
-    --link-color: #851bc2;
+    --link-color: #59a6ff;
     --border-color: #444444;
   }
   
@@ -25,7 +25,7 @@
       --background-color: #121212;
       --text-color: #e0e0e0;
       --heading-color: #ffffff;
-      --link-color: #851bc2;
+      --link-color: #59a6ff;
       --border-color: #444444;
     }
   }

@@ -1,0 +1,119 @@
+---
+// Configuration variables in frontmatter
+const title = "EPISODE IX";
+const subtitle = "DUELL OF THE FATES";
+
+// Width in rem units - smaller value = narrower text
+const textWidthRem = 30; 
+
+// Crawl text as an array of paragraphs for easier management
+const crawlParagraphs = [
+  "The iron grip of the FIRST ORDER has spread to the farthest reaches of the galaxy. Only a few scattered planets remain unoccupied. Traitorous acts are punishable by death.",
+  "Determined to suffocate a growing unrest, Supreme Leader KYLO REN has silenced all communication between neighboring systems.",
+  "Led by GENERAL LEIA ORGANA, the Resistance has planned a secret mission to prevent their annihilation and forge a path to freedom..."
+];
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Wars Crawl Text</title>
+</head>
+<body style={`--text-width-rem: ${textWidthRem};`}>
+  <div class="crawl-container">
+    <div class="crawl">
+      <div class="title">
+        <p>{title}</p>
+        <h1>{subtitle}</h1>
+      </div>
+      <div class="text">
+        {crawlParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      background-color: black;
+    }
+
+    .crawl-container {
+      perspective: 400px;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .crawl {
+      position: absolute;
+      top: 100vh;
+      color: #FFE81F; /* Star Wars yellow */
+      font-weight: bold;
+      text-align: left; /* Keep text left-aligned like in the movies */
+      transform-origin: 50% 100%;
+      transform: rotateX(55deg) translateX(-50%);
+      animation: scroll 90s linear forwards;
+      width: calc(var(--text-width-rem) * 1rem); /* Width based on rem variable */
+      left: 50%; /* Center horizontally */
+    }
+
+    .title {
+      margin-bottom: 6em;
+      text-align: center; /* Keep title centered */
+    }
+
+    .title p {
+      font-size: 2em;
+      margin-bottom: 0.2em;
+    }
+
+    .title h1 {
+      font-size: 3em;
+      margin: 0;
+      margin-bottom: 1em;
+    }
+
+    .text {
+      font-size: 1.5em;
+      line-height: 1.6;
+      padding: 0 1rem;
+    }
+
+    .text p {
+      margin-bottom: 2em;
+    }
+
+    @keyframes scroll {
+      0% {
+        top: 100vh;
+        transform: rotateX(55deg) translateX(-50%) translateZ(0);
+      }
+      100% {
+        top: -300vh;
+        transform: rotateX(55deg) translateX(-50%) translateZ(-2500px);
+      }
+    }
+  </style>
+</body>
+</html>
