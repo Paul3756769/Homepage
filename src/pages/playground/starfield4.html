@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Star Field</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars */
+    background-color: black; /* Set a dark background */
+  }
+  
+  .star-field {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    perspective: 800px;
+  }
+  
+  .star {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 2px;
+    height: 2px;
+  }
+</style>
+</head>
+<body>
+  <div class="star-field"></div>
+
+  <script>
+    const starCount = 400;
+    const starField = document.querySelector('.star-field');
+    const stars = [];
+    
+    // Create stars
+    function createStarField() {
+      for (let i = 0; i < starCount; i++) {
+        // Create a star with a trajectory that won't disappear mid-screen
+        createStar();
+      }
+    }
+    
+    function createStar(atDistance = null) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      
+      // Use a simpler approach for positioning stars
+      const z = atDistance || Math.random() * 1000;
+      
+      // Create stars in a wide enough area that they'll exit through the edges
+      // rather than disappearing in the middle
+      const viewWidth = window.innerWidth;
+      const viewHeight = window.innerHeight;
+      
+      // Start stars in a wider area than the visible screen
+      // This ensures they'll move toward the edges as they get closer
+      const scaleFactor = z / 1000; // Further stars need a wider area
+      const margin = 50 * scaleFactor; // Percentage beyond the normal view
+      
+      // Random position within expanded bounds
+      const x = ((Math.random() * (100 + 2 * margin)) - margin) - 50;
+      const y = ((Math.random() * (100 + 2 * margin)) - margin) - 50;
+      
+      // Set initial position
+      updateStarPosition(star, x, y, z);
+      
+      // Random star brightness
+      const opacity = 0.1 + Math.random() * 0.9;
+      star.style.opacity = opacity;
+      
+      // Random star color (mostly white with slight variations)
+      const hue = 180 + Math.random() * 60; // blue-white range
+      const saturation = Math.random() * 30; // not too saturated 
+      const lightness = 85 + Math.random() * 15; // bright
+      star.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      
+      // Random star size
+      const size = 0.5 + Math.random() * Math.random() * 2.5;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      
+      // Store star properties for animation
+      const starObject = { element: star, x, y, z, size };
+      stars.push(starObject);
+      starField.appendChild(star);
+      
+      return starObject;
+    }
+    
+    function updateStarPosition(star, x, y, z) {
+      // Calculate 2D position from 3D coordinates
+      const scale = 800 / (800 + z);
+      const screenX = (x * scale) + 50;
+      const screenY = (y * scale) + 50;
+      
+      star.style.left = `${screenX}%`;
+      star.style.top = `${screenY}%`;
+      star.style.transform = `scale(${scale})`;
+      
+      // Check if the star is too far off screen (give a margin)
+      const margin = 10; // Additional percentage outside screen
+      return screenX >= -margin && screenX <= (100 + margin) && 
+             screenY >= -margin && screenY <= (100 + margin);
+    }
+    
+    // Animate star field
+    function animateStars() {
+      const speed = 5;
+      
+      stars.forEach((star, index) => {
+        // Move star closer (decrease z)
+        star.z -= speed;
+        
+        // If star is too close or out of bounds, reset it
+        const isVisible = updateStarPosition(star.element, star.x, star.y, star.z);
+        
+        if (star.z < 0 || !isVisible) {
+          // Remove from DOM
+          starField.removeChild(star.element);
+          
+          // Replace with a new star at the far distance
+          const newStar = createStar(1000);
+          
+          // Replace in the stars array
+          stars[index] = newStar;
+        }
+      });
+      
+      requestAnimationFrame(animateStars);
+    }
+    
+    // Initialize
+    createStarField();
+    animateStars();
+  </script>
+</body>
+</html>

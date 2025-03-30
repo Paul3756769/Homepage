@@ -1,0 +1,167 @@
+---
+// filepath: src/pages/StarryBackground.astro
+// TypeScript logic for generating stars
+const numberOfStars = 300; // Adjust as needed
+
+interface Star {
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+}
+
+// Generate random stars
+const stars: Star[] = Array.from({ length: numberOfStars }, () => ({
+  x: Math.random() * 100, // % position
+  y: Math.random() * 100, // % position
+  size: Math.random() * 3 + 1, // Star size between 1-4px
+  opacity: Math.random() * 0.7 + 0.3, // Opacity between 0.3-1
+}));
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starry Background</title>
+</head>
+<body>
+  <div class="stars-container">
+    {stars.map((star) => (
+      <div 
+        class="star" 
+        style={`left: ${star.x}%; top: ${star.y}%; width: ${star.size}px; height: ${star.size}px; opacity: ${star.opacity};`}
+      ></div>
+    ))}
+  </div>
+
+  <div class="content-container">
+    <div class="viewing-window">
+      <!-- This is where the stars will be visible through -->
+      <h1>Starry Background</h1>
+      <p>Scroll down to see the parallax effect</p>
+    </div>
+
+    <!-- Add more content to enable scrolling -->
+    <div class="scrollable-content">
+      {Array.from({ length: 20 }).map((_, i) => (
+        <p>Scrollable content section {i + 1}</p>
+      ))}
+    </div>
+  </div>
+
+  <style>
+    /* Reset and full page setup */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: system-ui, sans-serif;
+      background-color: #000;
+      color: white;
+    }
+
+    /* Stars container - fixed position covering the viewport */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Allow clicks to pass through */
+      z-index: 0;
+      visibility: hidden; /* Hide stars by default */
+    }
+
+    /* Individual star styling */
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 0 2px rgba(255, 255, 255, 0.7);
+    }
+
+    /* Content container */
+    .content-container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    /* Viewing window where stars are visible */
+    .viewing-window {
+      background-color: transparent;
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      position: relative;
+    }
+
+    /* Make stars visible through the viewing window */
+    .viewing-window::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      z-index: -1;
+      /* This mask makes the stars visible only through this element */
+      -webkit-mask: linear-gradient(#000, #000);
+      mask: linear-gradient(#000, #000);
+    }
+
+    /* Show stars through the window */
+    .viewing-window::before ~ .stars-container {
+      visibility: visible;
+    }
+
+    /* Scrollable content styling */
+    .scrollable-content {
+      background-color: rgba(30, 30, 50, 0.8);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+  </style>
+
+  <script>
+    // Make stars visible through the viewing window
+    document.addEventListener('DOMContentLoaded', () => {
+      const starsContainer = document.querySelector('.stars-container');
+      const viewingWindow = document.querySelector('.viewing-window');
+      
+      if (starsContainer && viewingWindow) {
+        // Alternative approach - using CSS clip-path or masking might be better,
+        // but this helps ensure it works across browsers
+        starsContainer.style.visibility = 'visible';
+        
+        // Optional: Add some twinkling animation to stars
+        document.querySelectorAll('.star').forEach(star => {
+          const duration = 2 + Math.random() * 8;
+          star.style.animation = `twinkle ${duration}s infinite alternate`;
+        });
+      }
+    });
+  </script>
+
+  <style>
+    /* Twinkle animation */
+    @keyframes twinkle {
+      0% {
+        opacity: var(--opacity, 0.3);
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</body>
+</html>

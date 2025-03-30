@@ -1,0 +1,155 @@
+---
+// Basic star configuration
+interface Star {
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+  twinkleSpeed: number;
+}
+
+// Generate a simple set of random stars
+const stars = Array.from({ length: 100 }, () => ({
+  x: Math.random() * 100,
+  y: Math.random() * 100,
+  size: Math.random() * 2 + 0.5,
+  opacity: Math.random() * 0.5 + 0.3,
+  twinkleSpeed: Math.random() * 0.005 + 0.001
+}));
+
+// Pass star data to client
+const serializedStars = JSON.stringify(stars);
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Starry Canvas</title>
+  <style>
+    /* Clean base styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: white;
+      font-family: system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Canvas positioning */
+    #starCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Content positioning */
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      min-height: 200vh; /* Allows scrolling for parallax effect */
+    }
+
+    /* Viewing window styling */
+    .window {
+      max-width: 800px;
+      margin: 20vh auto;
+      padding: 2rem;
+      border-radius: 16px;
+      background: rgba(20, 20, 40, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas element for stars -->
+  <canvas id="starCanvas"></canvas>
+
+  <!-- Content that scrolls over the stars -->
+  <div class="content">
+    <div class="window">
+      <h1>Starry Background</h1>
+      <p>A minimalist canvas-based star field with parallax effect.</p>
+      <p>Scroll down to see the parallax effect in action.</p>
+    </div>
+
+    <!-- Additional content for scrolling -->
+    <div class="window">
+      <h2>How It Works</h2>
+      <p>The stars are drawn on a fixed-position canvas while the content scrolls.</p>
+      <p>Each star has its own size, position, and twinkling pattern.</p>
+    </div>
+  </div>
+
+  <script define:vars={{ stars: serializedStars }}>
+    // Initialize when document is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      // Parse star data
+      const starData = JSON.parse(stars);
+      
+      // Get canvas and context
+      const canvas = document.getElementById('starCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Make canvas fullscreen
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      
+      // Initialize canvas size
+      resizeCanvas();
+      
+      // Handle window resizing
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Animation variables
+      let animationFrame;
+      
+      // Main animation loop
+      function animate(time) {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw each star
+        starData.forEach(star => {
+          // Calculate position in pixels from percentage
+          const x = star.x * canvas.width / 100;
+          const y = star.y * canvas.height / 100;
+          
+          // Calculate twinkling effect
+          const twinkle = Math.sin(time * star.twinkleSpeed);
+          const brightness = star.opacity + twinkle * 0.15;
+          
+          // Draw the star
+          ctx.beginPath();
+          ctx.arc(x, y, star.size / 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+          ctx.fill();
+        });
+        
+        // Continue animation
+        animationFrame = requestAnimationFrame(animate);
+      }
+      
+      // Start animation
+      animationFrame = requestAnimationFrame(animate);
+      
+      // Pause animation when page is not visible
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && animationFrame) {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        } else if (!document.hidden && !animationFrame) {
+          animationFrame = requestAnimationFrame(animate);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

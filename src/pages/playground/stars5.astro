@@ -1,0 +1,87 @@
+---
+// Server-side JavaScript to generate random star positions
+// This is necessary to create randomly positioned stars with different properties
+
+// Function to generate random number between min and max
+const random = (min, max) => Math.random() * (max - min) + min;
+
+// Generate stars data using techniques from the reference file
+const numberOfStars = 400;
+const stars = Array.from({ length: numberOfStars }, () => {
+  // More realistic star properties based on reference
+  const size = 0.5 + Math.random() * Math.random() * 2.5;
+  const opacity = 0.1 + Math.random() * 0.9;
+  const hue = 180 + Math.random() * 60; // blue-white range
+  const saturation = Math.random() * 30; // not too saturated
+  const lightness = 85 + Math.random() * 15; // bright
+  
+  return {
+    x: random(1, 99), // percentage position
+    y: random(1, 99), // percentage position
+    size,
+    opacity,
+    twinkleDelay: random(0, 4),
+    hue,
+    saturation,
+    lightness
+  };
+});
+---
+
+<div class="starry-window">
+  <div class="stars-container">
+    {stars.map(star => (
+      <div 
+        class="star"
+        style={`
+          left: ${star.x}%;
+          top: ${star.y}%;
+          width: ${star.size}px;
+          height: ${star.size}px;
+          opacity: ${star.opacity};
+          background-color: hsl(${star.hue}, ${star.saturation}%, ${star.lightness}%);
+          --base-opacity: ${star.opacity};
+          --delay: ${star.twinkleDelay};
+        `}
+      ></div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .starry-window {
+    position: relative;
+    width: 500px; /* Arbitrary size, can be changed */
+    height: 300px; /* Arbitrary size, can be changed */
+    background-color: #000;
+    overflow: hidden;
+    margin: 50px; /* Added margin to see it clearly */
+  }
+
+  .stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    transform-origin: center;
+    animation: twinkle 4s infinite ease-in-out;
+    animation-delay: calc(var(--delay) * 1s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { 
+      opacity: var(--base-opacity);
+      transform: scale(1);
+    }
+    50% { 
+      opacity: calc(var(--base-opacity) * 0.5);
+      transform: scale(0.8);
+    }
+  }
+</style>
