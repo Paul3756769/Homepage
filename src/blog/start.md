@@ -6,17 +6,6 @@ author: "Paul"
 image: {
     url: "https://docs.astro.build/assets/rose.webp",
     alt: "test"
-
-cute approach, i like the page structure
-
-very minimalist without being trivial. the power lies in the perfection and little things
-  like look at the cv. the design is minimal but unique. consistent "personal" design language with latex, want that too
-
-i like the selfie over a professional headshot. i like the way it is positioned on the about page
-
-i like the subtile underline animations in the navbar, the almost invisible highlighter around her portrait, on her logo. they are barely recognizable, but do their job perfectly. this is what makes it so great! (except in the start card, this is borderline). and they are not trivial.
-
-i like the non-serious vibes that dont destroy her professionality, but create character
 }
 description: "test"
 ---
